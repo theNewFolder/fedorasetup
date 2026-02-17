@@ -4,8 +4,7 @@
   # GitHub integration
 
   home.packages = with pkgs; [
-    gh
-    lazygit
+    # gh and lazygit in apps.nix
     git-lfs
   ];
 

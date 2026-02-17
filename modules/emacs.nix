@@ -5,16 +5,12 @@
 
   home.packages = with pkgs; [
     emacs
-    # Emacs dependencies
-    ripgrep  # for consult-ripgrep
-    fd       # for consult-find
-    sqlite   # for org-roam
-    graphviz # for org-roam-ui graph
-    # Spell checking
-    aspell
+    # Emacs-specific deps (ripgrep/fd in apps.nix)
+    sqlite        # org-roam
+    graphviz      # org-roam-ui graph
+    aspell        # spell check
     aspellDicts.en
-    # PDF tools
-    poppler-utils
+    poppler-utils # PDF tools
   ];
 
   # Emacs daemon as systemd service

@@ -8,6 +8,7 @@
     ./modules/firefox.nix
     ./modules/ai.nix
     ./modules/waybar.nix
+    ./modules/apps.nix
   ];
 
   home.username = "dev";
@@ -15,43 +16,6 @@
   home.stateVersion = "24.11";
 
   programs.home-manager.enable = true;
-
-  # ===== Packages =====
-  home.packages = with pkgs; [
-    # Modern CLI
-    ripgrep fd bat eza fzf zoxide delta
-    btop bottom htop procs dust bandwhich
-    tealdeer jq yq sd hexyl tokei hyperfine
-
-    # File managers
-    yazi nnn lf
-
-    # Media
-    mpv imv ffmpeg yt-dlp
-
-    # Dev tools
-    lazygit gh neovim helix
-    gnumake cmake
-
-    # Productivity
-    zathura
-
-    # Wayland tools
-    grim slurp swappy wl-clipboard wf-recorder
-    wlsunset libnotify
-
-    # Fun
-    fastfetch cmatrix cowsay fortune
-
-    # Fonts
-    nerd-fonts.fira-code
-    nerd-fonts.iosevka
-    noto-fonts
-    noto-fonts-color-emoji
-    # DankMono Nerd Font installed manually to ~/.local/share/fonts/
-  ];
-
-  # Git config is in modules/github.nix
 
   # ===== Zsh =====
   programs.zsh = {
@@ -69,6 +33,7 @@
     };
 
     shellAliases = {
+      # Modern CLI
       ls = "eza --icons --group-directories-first";
       ll = "eza -la --icons --group-directories-first";
       lt = "eza --tree --icons -L 2";
@@ -76,15 +41,17 @@
       top = "btop";
       ".." = "cd ..";
       "..." = "cd ../..";
+
+      # Git (basics — more in github.nix)
       g = "git";
       gs = "git status";
       gc = "git commit";
       gp = "git push";
       gd = "git diff";
       glog = "git log --oneline --graph --decorate -10";
-      e = "emacsclient -c -a emacs";
-      et = "emacsclient -t -a emacs";
-      rebuild-home = "home-manager switch --flake ~/fedorasetup#dev";
+
+      # System
+      rebuild-home = "home-manager switch --flake ~/fedorasetup#dev -b backup";
     };
 
     initContent = ''
@@ -155,7 +122,6 @@
     enable = true;
     theme = {
       name = "Adwaita-dark";
-      # gnome-themes-extra only has GTK2/3 CSS; GTK4 uses prefer-dark-theme
     };
     iconTheme = {
       name = "Papirus-Dark";
@@ -165,7 +131,7 @@
     gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
   };
 
-  # ===== Wayland Environment =====
+  # ===== Environment =====
   home.sessionVariables = {
     EDITOR = "emacsclient -t";
     VISUAL = "emacsclient -c";

@@ -41,25 +41,6 @@
       tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
     };
 
-    cpu = {
-      format = "󰻠  {usage}%";
-      format-alt = "󰻠  {avg_frequency} GHz";
-      interval = 2;
-    };
-
-    memory = {
-      format = "󰍛  {percentage}%";
-      format-alt = "󰍛  {used:0.1f}G / {total:0.1f}G";
-      interval = 2;
-    };
-
-    temperature = {
-      critical-threshold = 80;
-      format = "  {temperatureC}°C";
-      format-critical = "  {temperatureC}°C";
-      interval = 2;
-    };
-
     battery = {
       format = "{icon}  {capacity}%";
       format-charging = "  {capacity}%";
@@ -95,27 +76,6 @@
       spacing = 8;
     };
 
-    disk = {
-      format = "󰋊  {percentage_used}%";
-      format-alt = "󰋊  {used} / {total}";
-      path = "/";
-      interval = 30;
-    };
-
-    backlight = {
-      format = "{icon}  {percent}%";
-      format-icons = [ "" "" "" "" "" "" "" "" "" ];
-      on-scroll-up = "brightnessctl set +5%";
-      on-scroll-down = "brightnessctl set 5%-";
-    };
-
-    idle_inhibitor = {
-      format = "{icon}";
-      format-icons = {
-        activated = "";
-        deactivated = "";
-      };
-    };
   };
 
   xdg.configFile."waybar/style.css".text = ''
@@ -138,16 +98,10 @@
     #workspaces,
     #window,
     #clock,
-    #cpu,
-    #memory,
-    #temperature,
     #battery,
     #network,
     #pulseaudio,
-    #tray,
-    #idle_inhibitor,
-    #disk,
-    #backlight {
+    #tray {
         padding: 6px 16px;
         margin: 4px 2px;
         background: linear-gradient(135deg, #282828 0%, #3c3836 100%);
@@ -161,15 +115,10 @@
     #workspaces:hover,
     #window:hover,
     #clock:hover,
-    #cpu:hover,
-    #memory:hover,
-    #temperature:hover,
     #battery:hover,
     #network:hover,
     #pulseaudio:hover,
-    #idle_inhibitor:hover,
-    #disk:hover,
-    #backlight:hover {
+    #tray:hover {
         background: linear-gradient(135deg, #3c3836 0%, #504945 100%);
         border-color: #ffd040;
         box-shadow: 0 4px 12px rgba(250, 189, 47, 0.3);
@@ -205,16 +154,6 @@
         font-weight: bold;
         padding: 6px 20px;
         border-color: #60ff90;
-    }
-
-    #cpu { color: #d0f020; }
-    #memory { color: #60ff90; }
-    #temperature { color: #ff60d0; }
-
-    #temperature.critical {
-        background: linear-gradient(135deg, #ff5050 0%, #d42020 100%);
-        color: #1d2021;
-        animation: blink 1s linear infinite;
     }
 
     #battery { color: #ffd040; }
@@ -255,15 +194,6 @@
     #tray > .needs-attention {
         background-color: #ff5050;
         animation: blink 1s linear infinite;
-    }
-
-    #disk { color: #d3869b; }
-    #backlight { color: #fabd2f; }
-    #idle_inhibitor { color: #a09080; }
-    #idle_inhibitor.activated {
-        background: linear-gradient(135deg, #ff9030 0%, #e86420 100%);
-        color: #1d2021;
-        border-color: #ffd040;
     }
 
     @keyframes blink {
