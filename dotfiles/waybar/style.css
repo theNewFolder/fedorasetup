@@ -1,6 +1,6 @@
 * {
-    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
-    font-size: 15px;
+    font-family: "DankMono Nerd Font", "Font Awesome 6 Free";
+    font-size: 17px;
     font-weight: 500;
     border: none;
     border-radius: 0;
@@ -24,7 +24,9 @@ window#waybar {
 #network,
 #pulseaudio,
 #tray,
-#idle_inhibitor {
+#idle_inhibitor,
+#disk,
+#backlight {
     padding: 6px 16px;
     margin: 4px 2px;
     background: linear-gradient(135deg, #282828 0%, #3c3836 100%);
@@ -44,7 +46,9 @@ window#waybar {
 #battery:hover,
 #network:hover,
 #pulseaudio:hover,
-#idle_inhibitor:hover {
+#idle_inhibitor:hover,
+#disk:hover,
+#backlight:hover {
     background: linear-gradient(135deg, #3c3836 0%, #504945 100%);
     border-color: #ffd040;
     box-shadow: 0 4px 12px rgba(250, 189, 47, 0.3);
@@ -132,6 +136,8 @@ window#waybar {
     animation: blink 1s linear infinite;
 }
 
+#disk { color: #d3869b; }
+#backlight { color: #fabd2f; }
 #idle_inhibitor { color: #a09080; }
 #idle_inhibitor.activated {
     background: linear-gradient(135deg, #ff9030 0%, #e86420 100%);
@@ -155,5 +161,5 @@ tooltip {
 
 tooltip label {
     color: #fbf1c7;
-    font-family: "JetBrainsMono Nerd Font";
+    font-family: "DankMono Nerd Font";
 }

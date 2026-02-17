@@ -9,7 +9,7 @@
 
     "modules-left": ["sway/workspaces", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "battery"],
+    "modules-right": ["tray", "idle_inhibitor", "disk", "backlight", "pulseaudio", "network", "cpu", "memory", "temperature", "battery"],
 
     "sway/workspaces": {
         "disable-scroll": false,
@@ -32,27 +32,27 @@
     },
 
     "clock": {
-        "format": "  {:%H:%M   %a %b %d}",
-        "format-alt": "  {:%Y-%m-%d %H:%M:%S}",
+        "format": "  {:%I:%M %p}    {:%a %b %d}",
+        "format-alt": "  {:%Y-%m-%d %I:%M:%S %p}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
     "cpu": {
-        "format": "  {usage}%",
-        "format-alt": "  {avg_frequency} GHz",
+        "format": "󰻠  {usage}%",
+        "format-alt": "󰻠  {avg_frequency} GHz",
         "interval": 2
     },
 
     "memory": {
-        "format": "  {percentage}%",
-        "format-alt": "  {used:0.1f}G / {total:0.1f}G",
+        "format": "󰍛  {percentage}%",
+        "format-alt": "󰍛  {used:0.1f}G / {total:0.1f}G",
         "interval": 2
     },
 
     "temperature": {
         "critical-threshold": 80,
-        "format": " {temperatureC}°C",
-        "format-critical": " {temperatureC}°C",
+        "format": "  {temperatureC}°C",
+        "format-critical": "  {temperatureC}°C",
         "interval": 2
     },
 
@@ -69,19 +69,19 @@
     },
 
     "network": {
-        "format-wifi": "  {essid} ({signalStrength}%)",
-        "format-ethernet": "  {ifname}",
-        "format-disconnected": "  Disconnected",
+        "format-wifi": "󰤨  {essid} ({signalStrength}%)",
+        "format-ethernet": "󰈀  {ifname}",
+        "format-disconnected": "󰤭  Disconnected",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
         "interval": 2
     },
 
     "pulseaudio": {
         "format": "{icon}  {volume}%",
-        "format-muted": "  {volume}%",
+        "format-muted": "󰖁  {volume}%",
         "format-icons": {
-            "headphone": "",
-            "default": ["", "", ""]
+            "headphone": "󰋋",
+            "default": ["󰕿", "󰖀", "󰕾"]
         },
         "on-click": "pavucontrol"
     },
@@ -89,6 +89,20 @@
     "tray": {
         "icon-size": 18,
         "spacing": 8
+    },
+
+    "disk": {
+        "format": "󰋊  {percentage_used}%",
+        "format-alt": "󰋊  {used} / {total}",
+        "path": "/",
+        "interval": 30
+    },
+
+    "backlight": {
+        "format": "{icon}  {percent}%",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
     },
 
     "idle_inhibitor": {
