@@ -151,7 +151,7 @@
     enable = true;
     theme = {
       name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+      # gnome-themes-extra only has GTK2/3 CSS; GTK4 uses prefer-dark-theme
     };
     iconTheme = {
       name = "Papirus-Dark";
