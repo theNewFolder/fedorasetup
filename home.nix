@@ -7,6 +7,7 @@
     ./modules/emacs.nix
     ./modules/firefox.nix
     ./modules/ai.nix
+    ./modules/waybar.nix
   ];
 
   home.username = "dev";
@@ -42,12 +43,12 @@
     # Fun
     fastfetch cmatrix cowsay fortune
 
-    # Fonts (SystemCrafters recommended)
-    nerd-fonts.jetbrains-mono
+    # Fonts
     nerd-fonts.fira-code
     nerd-fonts.iosevka
     noto-fonts
     noto-fonts-color-emoji
+    # DankMono Nerd Font installed manually to ~/.local/share/fonts/
   ];
 
   # Git config is in modules/github.nix
@@ -87,20 +88,19 @@
     };
 
     initContent = ''
-      # Load secrets
-      [[ -f ~/.secrets/gemini_api_key ]] && export GEMINI_API_KEY=$(cat ~/.secrets/gemini_api_key)
-      [[ -f ~/.secrets/anthropic_api_key ]] && export ANTHROPIC_API_KEY=$(cat ~/.secrets/anthropic_api_key)
-
-      # FZF
+      # FZF theming (Gruvbox)
       export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-      export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+      export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --color=bg+:#3c3836,bg:#1d2021,spinner:#fabd2f,hl:#d3869b,fg:#ebdbb2,header:#83a598,info:#fabd2f,pointer:#fabd2f,marker:#fe8019,fg+:#fbf1c7,prompt:#fabd2f,hl+:#d3869b'
 
       # Helpers
       mkcd() { mkdir -p "$1" && cd "$1"; }
+      take() { mkdir -p "$1" && cd "$1"; }  # alias for mkcd
 
       # History search
       bindkey '^[[A' history-search-backward
       bindkey '^[[B' history-search-forward
+      bindkey '^P' history-search-backward
+      bindkey '^N' history-search-forward
     '';
   };
 
