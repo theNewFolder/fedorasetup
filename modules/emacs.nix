@@ -1,0 +1,66 @@
+{ config, pkgs, ... }:
+
+{
+  # Emacs daemon + productivity setup
+
+  home.packages = with pkgs; [
+    emacs
+    # Emacs dependencies
+    ripgrep  # for consult-ripgrep
+    fd       # for consult-find
+    sqlite   # for org-roam
+    graphviz # for org-roam-ui graph
+    # Spell checking
+    aspell
+    aspellDicts.en
+    # PDF tools
+    poppler_utils
+  ];
+
+  # Emacs daemon as systemd service
+  services.emacs = {
+    enable = true;
+    defaultEditor = true;
+    startWithUserSession = "graphical";
+  };
+
+  # Shell aliases for emacsclient
+  programs.zsh.shellAliases = {
+    e = "emacsclient -c -a emacs";
+    et = "emacsclient -t -a emacs";
+    magit = "emacsclient -c -e '(magit-status)' -a emacs";
+    org-agenda = "emacsclient -c -e '(org-agenda nil \"d\")' -a emacs";
+    org-capture = "emacsclient -c -e '(org-capture)' -a emacs";
+    org-roam = "emacsclient -c -e '(org-roam-node-find)' -a emacs";
+  };
+
+  # Org directory structure
+  home.activation.orgDirs = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p $HOME/org/{roam,archive,templates,attachments}
+    for f in tasks notes journal ideas agenda inbox habits projects meetings; do
+      touch $HOME/org/$f.org
+    done
+  '';
+
+  # Org-protocol desktop entry for Firefox integration
+  xdg.desktopEntries.org-protocol = {
+    name = "Org Protocol";
+    comment = "Handle org-protocol URLs for Emacs capture";
+    exec = "emacsclient %u";
+    type = "Application";
+    terminal = false;
+    categories = [ "System" ];
+    mimeType = [ "x-scheme-handler/org-protocol" ];
+    noDisplay = true;
+  };
+
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/org-protocol" = "org-protocol.desktop";
+  };
+
+  # Session variables
+  home.sessionVariables = {
+    EDITOR = "emacsclient -t";
+    VISUAL = "emacsclient -c";
+  };
+}

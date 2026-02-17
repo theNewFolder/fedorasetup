@@ -263,6 +263,9 @@
     (setq org-outline-path-complete-in-steps nil)
     (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
+    ;; org-protocol for browser integration (Firefox/Tridactyl -> Emacs)
+    (require 'org-protocol)
+
     ;; Capture templates
     (setq org-capture-templates
           '(("t" "Task" entry (file+headline "~/org/tasks.org" "Active")
@@ -276,7 +279,9 @@
             ("p" "Project" entry (file+headline "~/org/projects.org" "Active Projects")
              "* %? [/]\n:PROPERTIES:\n:CREATED: %U\n:END:\n** TODO " :empty-lines 1)
             ("l" "Link" entry (file+headline "~/org/notes.org" "Reference")
-             "* %? :link:\n:PROPERTIES:\n:CREATED: %U\n:URL: %^{URL}\n:END:\n" :empty-lines 1)))
+             "* %? :link:\n:PROPERTIES:\n:CREATED: %U\n:URL: %^{URL}\n:END:\n" :empty-lines 1)
+            ("w" "Web Capture" entry (file+headline "~/org/inbox.org" "Web Captures")
+             "* %a :website:\n:PROPERTIES:\n:CREATED: %U\n:URL: %:link\n:END:\n%:initial\n%?" :empty-lines 1)))
 
     ;; Custom agenda views (SC Dashboard pattern)
     (setq org-agenda-custom-commands

@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./modules/secrets.nix
+    ./modules/github.nix
+    ./modules/emacs.nix
+  ];
+
   home.username = "dev";
   home.homeDirectory = "/home/dev";
   home.stateVersion = "24.11";
