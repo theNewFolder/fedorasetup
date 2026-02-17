@@ -5,6 +5,8 @@
     ./modules/secrets.nix
     ./modules/github.nix
     ./modules/emacs.nix
+    ./modules/firefox.nix
+    ./modules/ai.nix
   ];
 
   home.username = "dev";
@@ -48,20 +50,7 @@
     noto-fonts-color-emoji
   ];
 
-  # ===== Git =====
-  programs.git = {
-    enable = true;
-    userName = "dev";
-    userEmail = "dev@tuxnix.local";
-    extraConfig = {
-      init.defaultBranch = "main";
-      pull.rebase = true;
-      push.autoSetupRemote = true;
-      core.editor = "emacsclient -t";
-      color.ui = "auto";
-    };
-    ignores = [ "*~" "*.swp" ".DS_Store" ".env" "result" ];
-  };
+  # Git config is in modules/github.nix
 
   # ===== Zsh =====
   programs.zsh = {

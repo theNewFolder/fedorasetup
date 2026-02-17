@@ -14,13 +14,13 @@
     aspell
     aspellDicts.en
     # PDF tools
-    poppler_utils
+    poppler-utils
   ];
 
   # Emacs daemon as systemd service
   services.emacs = {
     enable = true;
-    defaultEditor = true;
+    defaultEditor = false;
     startWithUserSession = "graphical";
   };
 
@@ -58,9 +58,5 @@
     "x-scheme-handler/org-protocol" = "org-protocol.desktop";
   };
 
-  # Session variables
-  home.sessionVariables = {
-    EDITOR = "emacsclient -t";
-    VISUAL = "emacsclient -c";
-  };
+  # Session variables set in home.nix to avoid conflicts
 }
