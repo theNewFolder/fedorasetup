@@ -19,10 +19,9 @@
     spacing = 10;
 
     modules-left = [ "sway/workspaces" "sway/window" ];
-    modules-center = [ "cpu" "memory" "clock" "temperature" "battery" ];
+    modules-center = [ "clock" ];
     modules-right = [
-      "tray" "idle_inhibitor" "disk" "backlight"
-      "pulseaudio" "network"
+      "tray" "pulseaudio" "network" "battery"
     ];
 
     "sway/workspaces" = {

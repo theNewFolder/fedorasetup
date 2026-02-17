@@ -16,13 +16,17 @@
 
   # Shell integration - load secrets as env vars
   programs.zsh.initContent = ''
-    # Load API keys from secrets (nullglob prevents errors when no matches)
-    setopt local_options nullglob
-    for f in ~/.secrets/*_api_key ~/.secrets/*-api-key.txt; do
-      [[ -f "$f" ]] || continue
-      varname=$(basename "$f" | sed 's/[-.]/_/g; s/_txt$//; s/_api_key$//' | tr '[:lower:]' '[:upper:]')
-      export "''${varname}_API_KEY"="$(< "$f")"
-    done
+    # Load API keys from secrets
+    _load_secrets() {
+      setopt local_options nullglob
+      for f in ~/.secrets/*_api_key ~/.secrets/*-api-key.txt; do
+        [[ -f "$f" ]] || continue
+        local varname=$(basename "$f" | sed 's/[-.]/_/g; s/_txt$//; s/_api_key$//' | tr '[:lower:]' '[:upper:]')
+        export "''${varname}_API_KEY"="$(< "$f")"
+      done
+    }
+    _load_secrets
+    unfunction _load_secrets
   '';
 
   # GPG for encryption
